@@ -14,4 +14,11 @@ var host = Host.CreateDefaultBuilder(args)
     })
     .Build();
 
+using var scope = host.Services.CreateScope();
+var dbContext = scope.ServiceProvider.GetService<WorkerDbContext>();
+
+if (dbContext != null) {
+    Seeder.Seed(dbContext);
+}
+
 host.Run();
